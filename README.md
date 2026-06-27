@@ -28,11 +28,13 @@ Peer dependencies (provided by the host): `vue`, `nuxt`, `sass`, `lucide-vue-nex
 
 ## Theming contract
 
-Components never hardcode colours. They read SCSS variables that resolve to CSS custom properties (`--color-primary`, spacing, radius, elevation, ...). `assets/scss/_tokens.scss` ships sensible light and dark defaults under `:root` and `:root.dark`.
+Components never hardcode colours. Their styles read SCSS variables (`assets/scss/_vars.scss`) that resolve to CSS custom properties (`--color-primary`, spacing, radius, elevation, ...). Those variables emit no CSS of their own.
 
-A host themes the kit by overriding those custom properties in its own global stylesheet. Override only what you need:
+The default values live in one place: `assets/css/tokens.css`, shipped with light (`:root`) and dark (`:root.dark`) palettes. The Nuxt layer loads it automatically.
 
-```scss
+A host themes the kit by overriding the custom properties in its own global stylesheet, loaded after the defaults. Override only what you need:
+
+```css
 :root {
   --color-primary: #047844;
   --color-primary-rgb: 4, 120, 68;
@@ -43,11 +45,27 @@ Because the kit's SCSS variables point at the custom properties, an override flo
 
 ## Components
 
-Included (zero coupling to any app composable, router, or i18n):
+Primitives (extracted from the app):
 
 - `TButton`, `TCard`, `TTabs`, `TDropdown`, `TDropdownItem`, `TInfoButton`
 
+Layout (generic, authored here; the app will adopt them over time):
+
+- `TContainer` (max-width centred), `TStack` (flex stack), `TGrid` (responsive grid), `TPanel` (surface card), `TSplit` (main plus aside), `TPageShell` (sidebar/header/main), `TDivider`
+
+All are free of app composables, routing, and i18n.
+
 Deferred (need decoupling before they can move): components bound to app state, routing, theme, or translation (for example `TNavbar`, `TSidebar`, `TAvatar`, `TTopCard`, `ThemeToggleButton`). These move once their i18n strings and behaviour are lifted into props or peer composables.
+
+## Develop
+
+```bash
+npm install
+npm run storybook   # interactive component docs at localhost:6006
+npm run test:ct     # Cypress component tests (headless)
+```
+
+Storybook is the component workshop and documentation. Cypress component testing mounts each component in a real browser and asserts its behaviour.
 
 ## Status
 

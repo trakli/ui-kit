@@ -4,6 +4,10 @@
 // Components in `components/` are auto-imported into the host with the same names.
 export default defineNuxtConfig({
   components: [
-    { path: './components', pathPrefix: false },
+    // Only .vue files are components; stories and specs live alongside them.
+    { path: './components', pathPrefix: false, extensions: ['vue'] },
   ],
+  // Ship the default token values. A host overrides them by redefining the
+  // CSS custom properties in its own global stylesheet, loaded after this.
+  css: ['@trakli/ui-kit/assets/css/tokens.css'],
 })

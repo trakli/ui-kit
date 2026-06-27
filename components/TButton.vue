@@ -71,7 +71,7 @@ const buttonClasses = [
 </template>
 
 <style lang="scss" scoped>
-@use '../assets/scss/_tokens.scss' as *;
+@use '../assets/scss/_vars.scss' as *;
 
 .button {
   display: inline-flex;

@@ -13,7 +13,7 @@
 </template>
 
 <style lang="scss" scoped>
-@use '../assets/scss/_tokens.scss' as *;
+@use '../assets/scss/_vars.scss' as *;
 
 .t-card {
   background-color: $bg-white;
